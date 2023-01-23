@@ -7,6 +7,50 @@ const router = Router();
 const myenv = require('dotenv');
 const jtoken = require('jsonwebtoken');
 
+
+
+const Express = require('express');
+const morgan = require('morgan');
+const bodyparser = require('body-parser');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const { requireAuth, checkUser, preventUser } = require('./authreq');
+
+const App = Express();
+
+
+App.use(morgan('tiny'));
+
+App.use(bodyparser.urlencoded({ extended: true }));
+
+App.set('view engine', 'ejs');
+
+// app.set("views", path.resolve(__dirname, "views/ejs"))
+
+//load assets
+App.use('/css', express.static(path.resolve(__dirname, 'assets/css')));
+App.use('/img', express.static(path.resolve(__dirname, 'assets/img')));
+App.use('/js', express.static(path.resolve(__dirname, 'assets/js')));
+
+// middleware
+App.use(express.static('public'));
+App.use(express.json());
+App.use(cookieParser());
+
+App.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+  }
+  next();
+});
+
+
 const PORT = process.env.PORT || 3000;
 
 myenv.config({ path: 'config.env' });
