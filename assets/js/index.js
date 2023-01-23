@@ -9,6 +9,16 @@ $("#add_blog").submit(function(event){
     alert("Data Inserted Successfully!");
 })
 
+
+
+const kenv = require('dotenv');
+const axios = require('axios')
+
+kenv.config({ path: './config.env' });
+
+const PORT = process.env.PORT || 3000;
+
+
 $("#update_user").submit(function(event){
     event.preventDefault();
 
@@ -21,7 +31,7 @@ $("#update_user").submit(function(event){
 
 
     var request = {
-        "url" : `http://localhost:3000/update/user/${data.id}`,
+        "url" : `http://localhost:${PORT}/update/user/${data.id}`,
         "method" : "PUT",
         "data" : data
     }
@@ -38,7 +48,7 @@ if(window.location.pathname == "/Dashboard"){
         var id = $(this).attr("data-id")
 
         var request = {
-            "url" : `http://localhost:3000/delete/user/${id}`,
+            "url" : `http://localhost:${PORT}/delete/user/${id}`,
             "method" : "DELETE"
         }
 
@@ -51,3 +61,4 @@ if(window.location.pathname == "/Dashboard"){
 
     })
 }
+

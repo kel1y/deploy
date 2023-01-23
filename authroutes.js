@@ -2,14 +2,15 @@ const { Router } = require("express");
 const axios = require("axios");
 const authController = require("./authmain");
 const authMiddleware = require("./authreq");
-const dotenv = require("dotenv");
 const router = Router();
 const myenv = require('dotenv');
 const jtoken = require('jsonwebtoken');
 
-const PORT = process.env.PORT || 3000;
+
 
 myenv.config({ path: 'config.env' });
+
+const PORT = process.env.PORT || 3000;
 
 
 router.post("/signup", authController.signup);
@@ -71,17 +72,17 @@ router.get("/Dashboard", (req, res) => {
     res.send('Login as Admin')
   }
   Promise.all([
-    axios.get("http://localhost:3000/get/users", {
+    axios.get(`http://localhost:${PORT}/get/users`, {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
     }),
-    axios.get("http://localhost:3000/get/blogs", {
+    axios.get(`http://localhost:${PORT}/get/blogs`, {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
     }),
-    axios.get("http://localhost:3000/get/messages", {
+    axios.get(`http://localhost:${PORT}/get/messages`, {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
@@ -101,7 +102,7 @@ router.get("/Dashboard", (req, res) => {
 
 router.get("/update-user", (req, res) => {
   axios
-    .get("http://localhost:3000/update/user", { params: { id: req.query.id } })
+    .get(`http://localhost:${PORT}/update/user`, { params: { id: req.query.id } })
     .then(function (userdata) {
       res.render("update_user", { user: userdata.data });
     })
@@ -112,7 +113,7 @@ router.get("/update-user", (req, res) => {
 
 router.get("/update-blog", (req, res) => {
   axios
-    .get("http://localhost:3000/update/blog", { params: { id: req.query.id } })
+    .get(`http://localhost:${PORT}/update/blog`, { params: { id: req.query.id } })
     .then(function (userdata) {
       res.render("update_blog", { blog: userdata.data });
     })

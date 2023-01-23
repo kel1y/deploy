@@ -1,9 +1,11 @@
 const { User, Blog, Like, Comment, Message } = require('./user');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const renv = require('dotenv');
 const axios = require('axios')
 
-dotenv.config({ path: 'config.env' });
+renv.config({ path: 'config.env' });
+
+const PORT = process.env.PORT || 3000;
 
 // handle errors
 module.exports.handleErrors = (err) => {
@@ -97,7 +99,7 @@ try{
 
   res.cookie('token', token, { httpOnly: true, maxAge: maxAge * 1000 });
 
-  userblogs = await axios.get("http://localhost:3000/get/blogs").then(function(result){
+  userblogs = await axios.get(`http://localhost:${PORT}/get/blogs`).then(function(result){
     return result.data
   }).catch((error) => {
     return error
