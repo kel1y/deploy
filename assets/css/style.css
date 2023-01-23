@@ -66,7 +66,7 @@ a {
 }
 
 #header nav {
-  background-color: #06d6a0;
+  background-color: #9b968b;;
   padding: 1em 0;
   width: 100%;
 }
@@ -105,7 +105,7 @@ table {
 }
 
 .table tr:hover {
-  background-color: #06d6a0;
+  background-color: #9b968b;;
 }
 
 .table tr:hover td > a {
@@ -208,13 +208,13 @@ table {
 }
 
 .radio input[type="radio"]:checked + .radio-label:before {
-  background-color: #16db93;
+  background-color: #9b968b;;
   box-shadow: inset 0 0 0 4px #e9ecef;
 }
 
 .radio input[type="radio"]:focus + .radio-label:before {
   outline: none;
-  border-color: #16db93;
+  border-color: #9b968b;;
 }
 
 .radio input[type="radio"]:disabled + .radio-label:before {
@@ -229,7 +229,7 @@ table {
 #add_user .form-group .btn {
   width: 100%;
   padding: 0.9em 1em;
-  background-color: #16db93;
+  background-color: #9b968b;;
   border: none;
   font-family: "PT Sans", sans-serif;
   font-size: 1em;
