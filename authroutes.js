@@ -7,50 +7,6 @@ const router = Router();
 const myenv = require('dotenv');
 const jtoken = require('jsonwebtoken');
 
-
-
-const Express = require('express');
-const morgan = require('morgan');
-const bodyparser = require('body-parser');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const { requireAuth, checkUser, preventUser } = require('./authreq');
-
-const App = Express();
-
-
-App.use(morgan('tiny'));
-
-App.use(bodyparser.urlencoded({ extended: true }));
-
-App.set('view engine', 'ejs');
-
-// app.set("views", path.resolve(__dirname, "views/ejs"))
-
-//load assets
-App.use('/css', Express.static(path.resolve(__dirname, 'assets/css')));
-App.use('/img', Express.static(path.resolve(__dirname, 'assets/img')));
-App.use('/js', Express.static(path.resolve(__dirname, 'assets/js')));
-
-// middleware
-App.use(Express.static('public'));
-App.use(Express.json());
-App.use(cookieParser());
-
-App.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  );
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
-  }
-  next();
-});
-
-
 const PORT = process.env.PORT || 3000;
 
 myenv.config({ path: 'config.env' });
@@ -115,17 +71,17 @@ router.get("/Dashboard", (req, res) => {
     res.send('Login as Admin')
   }
   Promise.all([
-    axios.get("/get/users", {
+    axios.get("http://localhost:3000/get/users", {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
     }),
-    axios.get("/get/blogs", {
+    axios.get("http://localhost:3000/get/blogs", {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
     }),
-    axios.get("/get/messages", {
+    axios.get("http://localhost:3000/get/messages", {
       headers: {
         Authorization: `Bearer ${req.cookies.token}`,
       },
@@ -145,7 +101,7 @@ router.get("/Dashboard", (req, res) => {
 
 router.get("/update-user", (req, res) => {
   axios
-    .get("/update/user", { params: { id: req.query.id } })
+    .get("http://localhost:3000/update/user", { params: { id: req.query.id } })
     .then(function (userdata) {
       res.render("update_user", { user: userdata.data });
     })
@@ -156,7 +112,7 @@ router.get("/update-user", (req, res) => {
 
 router.get("/update-blog", (req, res) => {
   axios
-    .get("/update/blog", { params: { id: req.query.id } })
+    .get("http://localhost:3000/update/blog", { params: { id: req.query.id } })
     .then(function (userdata) {
       res.render("update_blog", { blog: userdata.data });
     })

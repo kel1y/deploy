@@ -97,7 +97,7 @@ try{
 
   res.cookie('token', token, { httpOnly: true, maxAge: maxAge * 1000 });
 
-  userblogs = await axios.get("/get/blogs").then(function(result){
+  userblogs = await axios.get("http://localhost:3000/get/blogs").then(function(result){
     return result.data
   }).catch((error) => {
     return error
