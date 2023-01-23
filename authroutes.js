@@ -28,13 +28,13 @@ App.set('view engine', 'ejs');
 // app.set("views", path.resolve(__dirname, "views/ejs"))
 
 //load assets
-App.use('/css', express.static(path.resolve(__dirname, 'assets/css')));
-App.use('/img', express.static(path.resolve(__dirname, 'assets/img')));
-App.use('/js', express.static(path.resolve(__dirname, 'assets/js')));
+App.use('/css', Express.static(path.resolve(__dirname, 'assets/css')));
+App.use('/img', Express.static(path.resolve(__dirname, 'assets/img')));
+App.use('/js', Express.static(path.resolve(__dirname, 'assets/js')));
 
 // middleware
-App.use(express.static('public'));
-App.use(express.json());
+App.use(Express.static('public'));
+App.use(Express.json());
 App.use(cookieParser());
 
 App.use((req, res, next) => {
